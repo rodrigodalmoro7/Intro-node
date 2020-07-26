@@ -54,7 +54,20 @@ app.put("/projects/:id", (request, response) => {
 });
 
 app.delete("/projects/:id", (request, response) => {
-  return response.json(["Projeto 2", "projeto 3"]);
+  const { id } = request.params;
+  const { title, owner } = request.body;
+
+  const projectIndex = projects.findIndex((project) => project.id === id);
+
+  const project = {
+    id,
+    title,
+    owner,
+  };
+
+  projects.splice(projectIndex, 1);
+
+  return response.json(projects);
 });
 
 const port = 3334;
